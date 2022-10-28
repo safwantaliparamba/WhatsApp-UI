@@ -5,74 +5,84 @@ import _statusUpdates from '../data/status'
 const Status = () => {
 	const [statusUpdates, setStatusUpdates] = useState(_statusUpdates)
 	return (
-		<ScrollView style={styles.container}>
-			<TouchableOpacity
-				activeOpacity={0.8}
-				style={styles.statusContainer}
-			>
-				<View>
-					<Image
-						source={require('../assets/images/profile-picture.png')}
-						style={styles.profileImage}
-					/>
-				</View>
-				<View>
-					<Text style={styles.username}>My status</Text>
-					<Text style={styles.lastSeen}>just now</Text>
-				</View>
-				<TouchableOpacity style={styles.myStatusOptions}>
-					<Image  source={require('../assets/icons/dots.png')} />
-				</TouchableOpacity>
-			</TouchableOpacity>
-
-
-			<View style={styles.header}>
-				<Text>Recent updates</Text>
-			</View>
-
-			{statusUpdates.filter(item => !item.isViewed).map((item, index) => (
+		<>
+			<ScrollView style={styles.container}>
 				<TouchableOpacity
-					key={index}
 					activeOpacity={0.8}
 					style={styles.statusContainer}
 				>
 					<View>
 						<Image
-							source={item.profileImage}
+							source={require('../assets/images/profile-picture.png')}
 							style={styles.profileImage}
 						/>
 					</View>
 					<View>
-						<Text style={styles.username}>{item.username}</Text>
-						<Text style={styles.lastSeen}>{item.updated}</Text>
+						<Text style={styles.username}>My status</Text>
+						<Text style={styles.lastSeen}>just now</Text>
 					</View>
+					<TouchableOpacity style={styles.myStatusOptions}>
+						<Image source={require('../assets/icons/dots.png')} />
+					</TouchableOpacity>
 				</TouchableOpacity>
-			))}
 
 
-			<View style={styles.header}>
-				<Text>Viewed updates</Text>
+				<View style={styles.header}>
+					<Text>Recent updates</Text>
+				</View>
+
+				{statusUpdates.filter(item => !item.isViewed).map((item, index) => (
+					<TouchableOpacity
+						key={index}
+						activeOpacity={0.8}
+						style={styles.statusContainer}
+					>
+						<View>
+							<Image
+								source={item.profileImage}
+								style={styles.profileImage}
+							/>
+						</View>
+						<View>
+							<Text style={styles.username}>{item.username}</Text>
+							<Text style={styles.lastSeen}>{item.updated}</Text>
+						</View>
+					</TouchableOpacity>
+				))}
+
+
+				<View style={styles.header}>
+					<Text>Viewed updates</Text>
+				</View>
+				{statusUpdates.filter(item => item.isViewed).map((item, index) => (
+					<TouchableOpacity
+						key={index}
+						activeOpacity={0.8}
+						style={styles.statusContainer}
+					>
+						<View>
+							<Image
+								source={item.profileImage}
+								style={[styles.profileImage, styles.viewedStatus]}
+							/>
+						</View>
+						<View>
+							<Text style={styles.username}>{item.username}</Text>
+							<Text style={styles.lastSeen}>{item.updated}</Text>
+						</View>
+					</TouchableOpacity>
+				))}
+
+			</ScrollView>
+			<View style={styles.contacts}>
+				<TouchableOpacity>
+					<Image
+						source={require('../assets/icons/add-camera.png')}
+						style={styles.contactsImage}
+					/>
+				</TouchableOpacity>
 			</View>
-			{statusUpdates.filter(item => item.isViewed).map((item, index) => (
-				<TouchableOpacity
-					key={index}
-					activeOpacity={0.8}
-					style={styles.statusContainer}
-				>
-					<View>
-						<Image
-							source={item.profileImage}
-							style={[styles.profileImage, styles.viewedStatus]}
-						/>
-					</View>
-					<View>
-						<Text style={styles.username}>{item.username}</Text>
-						<Text style={styles.lastSeen}>{item.updated}</Text>
-					</View>
-				</TouchableOpacity>
-			))}
-
-		</ScrollView>
+		</>
 	)
 }
 
@@ -87,7 +97,7 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 	},
 	statusContainer: {
-		flex:1,
+		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
 		paddingHorizontal: 20,
@@ -114,9 +124,21 @@ const styles = StyleSheet.create({
 	lastSeen: {
 		fontSize: 15
 	},
-	myStatusOptions:{
-		flex:1,
+	myStatusOptions: {
+		flex: 1,
 		alignItems: 'flex-end',
 		justifyContent: 'center',
 	},
+	contacts: {
+		position: 'absolute',
+		bottom: 30,
+		right: 30,
+		backgroundColor: '#25D366',
+		padding: 15,
+		borderRadius: 30
+	},
+	contactsImage: {
+		width: 30,
+		height: 30,
+	}
 });

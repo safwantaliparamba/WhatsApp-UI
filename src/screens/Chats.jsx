@@ -13,37 +13,47 @@ import data from '../data/data';
 const Chats = ({ navigation }) => {
 	const sliceText = (text) => text.slice(0, 30)
 	return (
-		<ScrollView style={styles.container}>
-			{data.map(chats => (
-				<View
-					key={chats.id}
-					style={styles.chatContainer}
-				>
-					<TouchableOpacity onPress={() => console.warn('image clicked')}>
-						<Image style={styles.profileImage} source={chats.image} />
-					</TouchableOpacity>
-					<TouchableOpacity
-						onPress={() => navigation.navigate('Chat')}
-						style={styles.chatTextContainer}
+		<>
+			<ScrollView style={styles.container}>
+				{data.map(chats => (
+					<View
+						key={chats.id}
+						style={styles.chatContainer}
 					>
-						<View >
-							<Text style={styles.username}>{chats.username}</Text>
-							<Text style={styles.message}>
-								{chats.lastMessage.length > 30 ? `${sliceText(chats.lastMessage)}...` : chats.lastMessage}
-							</Text>
-						</View>
-						<View style={styles.chatRight}>
-							<Text style={styles.lastModified}>{chats.lastModified}</Text>
-							{chats.unreadMessages !== 0 && (
-								<View style={styles.unreadContainer}>
-									<Text style={styles.lastModified}>{chats.unreadMessages}</Text>
-								</View>
-							)}
-						</View>
-					</TouchableOpacity>
-				</View>
-			))}
-		</ScrollView>
+						<TouchableOpacity onPress={() => console.warn('image clicked')}>
+							<Image style={styles.profileImage} source={chats.image} />
+						</TouchableOpacity>
+						<TouchableOpacity
+							onPress={() => navigation.navigate('Chat')}
+							style={styles.chatTextContainer}
+						>
+							<View >
+								<Text style={styles.username}>{chats.username}</Text>
+								<Text style={styles.message}>
+									{chats.lastMessage.length > 30 ? `${sliceText(chats.lastMessage)}...` : chats.lastMessage}
+								</Text>
+							</View>
+							<View style={styles.chatRight}>
+								<Text style={styles.lastModified}>{chats.lastModified}</Text>
+								{chats.unreadMessages !== 0 && (
+									<View style={styles.unreadContainer}>
+										<Text style={styles.lastModified}>{chats.unreadMessages}</Text>
+									</View>
+								)}
+							</View>
+						</TouchableOpacity>
+					</View>
+				))}
+			</ScrollView>
+			<View style={styles.contacts}>
+				<TouchableOpacity>
+					<Image
+						source={require('../assets/icons/new-chat.png')}
+						style={styles.contactsImage}
+					/>
+				</TouchableOpacity>
+			</View>
+		</>
 	);
 };
 
@@ -95,4 +105,16 @@ const styles = StyleSheet.create({
 	chatRight: {
 		alignItems: 'flex-end'
 	},
+	contacts: {
+		position: 'absolute',
+		bottom: 30,
+		right: 30,
+		backgroundColor: '#25D366',
+		padding: 15,
+		borderRadius: 30
+	},
+	contactsImage: {
+		width: 30,
+		height: 30,
+	}
 });

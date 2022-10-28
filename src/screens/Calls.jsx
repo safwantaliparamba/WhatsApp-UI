@@ -6,6 +6,7 @@ import videoCall from '../assets/icons/video-call.png'
 import incoming from '../assets/icons/incoming.png'
 import outgoing from '../assets/icons/outgoing.png'
 import missedCall from '../assets/icons/missed-call.png'
+import addCall from '../assets/icons/addCall.png'
 
 
 const Calls = () => {
@@ -24,31 +25,41 @@ const Calls = () => {
     }
 
     return (
-        <ScrollView>
-            {callHistory.map((call, index) => (
-                <View
-                    key={index}
-                    style={styles.statusContainer}
-                >
-                    <View>
-                        <Image
-                            source={call.profileImage}
-                            style={styles.profileImage}
-                        />
-                    </View>
-                    <View>
-                        <Text style={styles.username}>{call.username}</Text>
-                        <View style={styles.timeStamp}>
-                            <Image style={styles.timeStampImage} source={callStatus(call.status)} />
-                            <Text style={styles.lastSeen}>just now</Text>
+        <>
+            <ScrollView>
+                {callHistory.map((call, index) => (
+                    <View
+                        key={index}
+                        style={styles.statusContainer}
+                    >
+                        <View>
+                            <Image
+                                source={call.profileImage}
+                                style={styles.profileImage}
+                            />
                         </View>
+                        <View>
+                            <Text style={styles.username}>{call.username}</Text>
+                            <View style={styles.timeStamp}>
+                                <Image style={styles.timeStampImage} source={callStatus(call.status)} />
+                                <Text style={styles.lastSeen}>just now</Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity style={styles.myStatusOptions}>
+                            <Image style={styles.callType} source={call.type === 'audio' ? audioCall : videoCall} />
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={styles.myStatusOptions}>
-                        <Image style={styles.callType} source={call.type === 'audio' ? audioCall : videoCall} />
-                    </TouchableOpacity>
-                </View>
-            ))}
-        </ScrollView>
+                ))}
+            </ScrollView>
+            <View style={styles.contacts}>
+				<TouchableOpacity>
+					<Image
+						source={addCall}
+						style={styles.contactsImage}
+					/>
+				</TouchableOpacity>
+			</View>
+        </>
     );
 };
 
@@ -99,4 +110,16 @@ const styles = StyleSheet.create({
         height: 15,
         marginRight: 10,
     },
+    contacts: {
+        position: 'absolute',
+        bottom: 30,
+        right: 30,
+        backgroundColor: '#25D366',
+        padding: 15,
+        borderRadius: 30
+    },
+    contactsImage: {
+        width: 30,
+        height: 30,
+    }
 });
