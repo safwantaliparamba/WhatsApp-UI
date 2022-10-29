@@ -83,7 +83,7 @@ function MyTabBar({ state, descriptors, navigation, position }) {
 
 const TabNav = () => {
 	return (
-			<Tab.Navigator tabBar={props => <MyTabBar {...props} />} initialRouteName='Calls'>
+			<Tab.Navigator tabBar={props => <MyTabBar {...props} />}>
 				<Tab.Screen name='Chats' component={Chats} />
 				<Tab.Screen name='Status' component={Status} />
 				<Tab.Screen name='Calls' component={Calls} />
